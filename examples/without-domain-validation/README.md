@@ -1,6 +1,8 @@
 # Terraform AWS ACM Multiple Hosted Zone Example
 
-This provides example on how to use terraform-aws-acm-multiple-hosted-zone module without creating or overwriting existing domain validation records on Route53.
+This example provides guides on how to use terraform-aws-acm-multiple-hosted-zone module without creating domain validation records on Route53.
+In general it is okay to overwrite domain validation records on Route53.
+This example cater to the case in which we don't want to overwrite existing domain validation for any reason.
 
 ## Usage 
 
@@ -13,7 +15,7 @@ terraform apply tfplan.out
 ```
 
 Note that this example may create resources that cost money.
-Run `terraform destroy` when you don't need the resources anymore.
+Run `terraform destroy` to clean up the resources.
 
 ## Requirements
 

@@ -1,11 +1,11 @@
 module "acm" {
     source = "../../"
 
-    domains = [
-        {
-            zone = "example.com"
-            domain = "example.com"
-        },
+    domain_name = {
+        zone = "example.com"
+        domain = "example.com"
+    }
+    subject_alternative_names = [
         {
             zone = "example.com"
             domain = "*.example.com"
@@ -23,6 +23,6 @@ module "acm" {
     validation_set_records = false
 
     tags = {
-        Name = "Test ACM request with multiple hosted zones"
+        Name = "ACM request without setting validation records on Route53"
     }
 }
