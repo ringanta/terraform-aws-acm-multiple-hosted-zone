@@ -1,21 +1,20 @@
 locals {
-  all_domains = [
-    for v in var.domains: v.domain
-  ]
-  all_zones = [
-    for v in var.domains: v.zone
-  ]
-  distinct_zones = distinct([
-    for v in var.domains: v.zone
+  all_domains = concat([var.domain_name.domain], [
+    for v in var.subject_alternative_names: v.domain
   ])
+  all_zones = concat([var.domain_name.zone], [
+    for v in var.subject_alternative_names: v.zone
+  ])
+  distinct_zones = distinct(local.all_zones)
   distinct_domains = distinct([
     for domain in local.all_domains: replace(domain, "*.", "")
   ])
   zone_name_to_id_map = zipmap(local.distinct_zones, data.aws_route53_zone.self[*].zone_id)
   domain_to_zone_map = zipmap(local.all_domains, local.all_zones)
 
-  cert_domain_name = sort(local.all_domains)[0]
-  cert_san = slice(sort(local.all_domains), 1, length(local.all_domains))
+  cert_san = reverse(sort([
+    for v in var.subject_alternative_names: v.domain
+  ]))
   cert_validation_domains = [
     for v in aws_acm_certificate.self.domain_validation_options: tomap(v) if contains(local.distinct_domains, replace(v.domain_name, "*.", ""))
   ]
@@ -29,7 +28,7 @@ data "aws_route53_zone" "self" {
 }
 
 resource "aws_acm_certificate" "self" {
-  domain_name = local.cert_domain_name
+  domain_name = var.domain_name.domain
   subject_alternative_names = local.cert_san
   validation_method = "DNS"
 

@@ -1,5 +1,10 @@
-variable "domains" {
-  description = "List of map of string containing domain name for the certificate and its corresponding hosted zone name"
+variable "domain_name" {
+  description = "Domain name for the ACM certificate"
+  type = map(string)
+}
+
+variable "subject_alternative_names" {
+  description = "List of subject alternative names for the ACM certificate"
   type = list(map(string))
 }
 
