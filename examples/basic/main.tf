@@ -1,11 +1,11 @@
 module "acm" {
     source = "../../"
 
-    domains = [
-        {
-            zone = "example.com"
-            domain = "example.com"
-        },
+    domain_name = {
+        zone = "example.com"
+        domain = "example.com"
+    }
+    subject_alternative_names = [
         {
             zone = "example.com"
             domain = "*.example.com"
@@ -21,6 +21,6 @@ module "acm" {
     ]
 
     tags = {
-        Name = "Test ACM request with multiple hosted zones"
+        Name = "ACM certificate with multiple hosted zones"
     }
 }

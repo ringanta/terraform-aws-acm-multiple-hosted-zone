@@ -1,6 +1,6 @@
 # Terraform AWS ACM Multiple Hosted Zone Example
 
-This provides example on how to use terraform-aws-acm-multiple-hosted-zone module.
+This example provides guides on how to use terraform-aws-acm-multiple-hosted-zone module.
 
 ## Usage 
 
@@ -13,7 +13,7 @@ terraform apply tfplan.out
 ```
 
 Note that this example may create resources that cost money.
-Run `terraform destroy` when you don't need the resources anymore.
+Run `terraform destroy` to clean up them.
 
 ## Requirements
 
@@ -35,4 +35,3 @@ No input.
 |------|-------------|
 | certificate\_arn | n/a |
 | certificate\_domains | n/a |
-
