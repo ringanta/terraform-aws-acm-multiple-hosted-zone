@@ -36,6 +36,9 @@ resource "aws_acm_certificate" "self" {
 
   lifecycle {
     create_before_destroy = true
+    # Workaround for SAN doesn't maintain order
+    # See https://github.com/terraform-providers/terraform-provider-aws/issues/8531
+    ignore_changes = [subject_alternative_names]
   }
 }
 
