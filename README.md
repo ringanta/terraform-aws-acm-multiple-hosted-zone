@@ -63,5 +63,3 @@ module "acm" {
 | certificate\_arn | The ARN of the certificate |
 | certificate\_domain\_validation\_options | A list of attributes to feed into other resources to complete certificate validation |
 | certificate\_domains | List of domain names covered by the certificate |
-
-  
