@@ -40,7 +40,7 @@ resource "aws_acm_certificate" "self" {
 }
 
 resource "aws_route53_record" "validation" {
-  count = var.validation_set_records ? length(local.cert_validation_domains) : 0
+  count = var.validation_set_records ? length(local.all_domains) : 0
 
   zone_id = lookup(local.zone_name_to_id_map, lookup(local.domain_to_zone_map, local.cert_validation_domains[count.index]["domain_name"]))
   name    = local.cert_validation_domains[count.index]["resource_record_name"]
