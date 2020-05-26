@@ -4,8 +4,8 @@ output "certificate_arn" {
 }
 
 output "certificate_domains" {
-    description = "List of domain names covered by the certificate"
-    value = concat([aws_acm_certificate.self.domain_name], aws_acm_certificate.self.subject_alternative_names)
+  description = "List of domain names covered by the certificate"
+  value       = concat([aws_acm_certificate.self.domain_name], aws_acm_certificate.self.subject_alternative_names)
 }
 
 output "certificate_domain_validation_options" {
