@@ -2,8 +2,8 @@ module "acm" {
   source = "../../"
 
   providers = {
-    aws.acm     = aws
-    aws.route53 = aws
+    aws.route53 = aws.production
+    aws.acm     = aws.staging
   }
 
   domain_name = {
@@ -26,9 +26,7 @@ module "acm" {
     }
   ]
 
-  validation_set_records = false
-
   tags = {
-    Name = "ACM request without setting validation records on Route53"
+    Name = "ACM certificate with multiple hosted zones and multiple AWS accounts"
   }
 }

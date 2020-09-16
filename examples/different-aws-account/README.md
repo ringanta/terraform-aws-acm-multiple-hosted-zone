@@ -1,6 +1,7 @@
 # Terraform AWS ACM Multiple Hosted Zone Example
 
-This example provides guides on how to use terraform-aws-acm-multiple-hosted-zone module.
+This example provides guides on how to use terraform-aws-acm-multiple-hosted-zone module involving multiple AWS accounts.
+To be precise, the ACM certificate will be provisioned in a certain AWS account while the domain are hosted in another AWS account.
 
 ## Usage 
 
