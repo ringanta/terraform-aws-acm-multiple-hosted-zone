@@ -1,8 +1,25 @@
 # Terraform AWS Certificate Manager (ACM) with Multiple Hosted Zone Module
 
 Terraform module to create an ACM resource that contains domains from multiple Route53 hosted zone.
-ACM validation is using Route53 only.
+This module allows provisoning ACM certificate in different AWS account with the Route53.
 This module supports terraform version 0.12 only.
+
+## Module versions
+
+- Module version 1.x is in the `master` branch.
+- Module version 2.x is in the `v2xx` branch.
+
+Module version 2 introduces breaking change. You can't use version 1.x configuration with module 2.x and vice versa.
+To upgrade your existing Terraform project to module version 2, I suggest to provision a new certificate with the same domain name and subject alternatives name. Here is the step would look like:
+
+1. Instantiate `acm-multiple-hosted-zone` version 2 in your existing terraform project.
+1. Provision a new ACM certificate using `acm-multiple-hosted-zone` version 2.
+
+    1. Run `terraform plan -out=tfplan.out`.
+    1. Run `terraform apply tfplan.out`.
+    1. Write down ARN of the newly created ACM certificate.
+
+1. On the consumer side of ACM certificate (For example, ALB), replace old certificate with the new one. This will guarantee a graceful upgrade without downtime.
 
 ## Usage
 
