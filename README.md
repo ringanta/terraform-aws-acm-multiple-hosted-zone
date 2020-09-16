@@ -69,28 +69,21 @@ module "acm" {
 
 - [Basic usage example](./examples/basic/)
 - [Use existing domain validations records](./examples/without-domain-validation)
-
-## Recreating ACM Certificate
-
-Due to the [https://github.com/terraform-providers/terraform-provider-aws/issues/8531](https://github.com/terraform-providers/terraform-provider-aws/issues/8531) issue, this module implement a workaround that makes existing ACM certificate won't be recreated when we change the subject alternatives name. So make sure to taint the certificate using `terraform taint` command before adjusting the subject alternatives name. Here is the steps:
-
-1. Taint exisiting certificate using `terraform taint module.acm.aws_acm_certificate.self` command.
-1. Adjust value of the `subject_alternatives_name` variable.
-1. Run `terraform plan -out=tfplan.out` and review the execution plan.
-1. Apply the change using `terraform apply tfplan.out`.
+- [Different AWS account between ACM and Route53](./examples/different-aws-account)
 
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| terraform | >= 0.12.0 |
+| terraform | >= 0.12.6 |
+| aws | ~> 3.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| aws.acm | n/a |
-| aws.route53 | n/a |
+| aws.acm | ~> 3.0 |
+| aws.route53 | ~> 3.0 |
 
 ## Inputs
 
