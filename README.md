@@ -12,13 +12,21 @@ The `domain_name` and `subject_alternative_names` variables consist of map (obje
 - The **domain** key contains domain name that will be used in the certificate whether in the domain name or subject alternative names section.
 
 ```terraform
+provider "aws" { }
+
 module "acm" {
     source = "../../"
+
+    providers = {
+        aws.acm = aws
+        aws.route53 = aws
+    }
 
     domain_name = {
         zone = "example.com"
         domain = "example.com"
     }
+
     subject_alternative_names = [
         {
             zone = "example.com"
@@ -53,6 +61,19 @@ Due to the [https://github.com/terraform-providers/terraform-provider-aws/issues
 1. Adjust value of the `subject_alternatives_name` variable.
 1. Run `terraform plan -out=tfplan.out` and review the execution plan.
 1. Apply the change using `terraform apply tfplan.out`.
+
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws.acm | n/a |
+| aws.route53 | n/a |
 
 ## Inputs
 
