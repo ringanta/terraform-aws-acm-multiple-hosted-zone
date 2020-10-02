@@ -70,6 +70,7 @@ module "acm" {
 - [Basic usage example](./examples/basic/)
 - [Use existing domain validations records](./examples/without-domain-validation)
 - [Different AWS account between ACM and Route53](./examples/different-aws-account)
+- [External certificate validations](./examples/external-validation)
 
 ## Requirements
 
@@ -103,3 +104,4 @@ module "acm" {
 | certificate\_arn | The ARN of the certificate |
 | certificate\_domain\_validation\_options | A list of attributes to feed into other resources to complete certificate validation |
 | certificate\_domains | List of domain names covered by the certificate |
+

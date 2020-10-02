@@ -1,13 +1,13 @@
 locals {
-  all_domains = concat([var.domain_name.domain], [
-    for v in var.subject_alternative_names : v.domain
-  ])
+  validated_domains = [
+    for object in concat([var.domain_name], var.subject_alternative_names) : object.domain if can(object["zone"])
+  ]
 
-  all_zones = concat([var.domain_name.zone], [
-    for v in var.subject_alternative_names : v.zone
-  ])
+  validated_zones = [
+    for object in concat([var.domain_name], var.subject_alternative_names) : object.zone if can(object["zone"])
+  ]
 
-  domain_zone_mapping = zipmap(local.all_domains, local.all_zones)
+  domain_zone_mapping = zipmap(local.validated_domains, local.validated_zones)
 
   cert_sans = sort([
     for v in var.subject_alternative_names : v.domain
@@ -20,7 +20,7 @@ locals {
 
 data "aws_route53_zone" "self" {
   provider = aws.route53
-  for_each = toset(local.all_zones)
+  for_each = toset(local.validated_zones)
 
   name         = each.value
   private_zone = false
@@ -43,7 +43,7 @@ resource "aws_route53_record" "validation" {
       name   = dvo.resource_record_name
       record = dvo.resource_record_value
       type   = dvo.resource_record_type
-    }
+    } if contains(local.validated_domains, dvo.domain_name)
   } : {}
 
   zone_id         = data.aws_route53_zone.self[local.domain_zone_mapping[each.key]].zone_id
