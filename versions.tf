@@ -3,6 +3,10 @@ terraform {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 4"
+      configuration_aliases = [
+        aws.acm,
+        aws.route53,
+      ]
     }
   }
 
